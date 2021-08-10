@@ -1,7 +1,7 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable no-undef */
 const hre = require('hardhat');
-const { deployed } = require('./deployed');
+const { deployed } = require('./helpers/deployed');
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
