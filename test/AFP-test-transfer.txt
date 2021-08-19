@@ -234,13 +234,14 @@ describe('Alector FoodPrint', () => {
     // console.log(cc);
   });
 
-  describe('Producer owns two NFTs', async function () {
+  describe('List NFTs of owner', async function () {
     it('List NFTs by produced by producer', async function () {
       const ownedIDs = await ownedNftIDs(afp, producer.address);
       // console.log(ownedIDs);
       const NFTList = await ownedNFTs(afp, ownedIDs);
-
-      expect(await NFTList.length).to.equal(2);
+      // console.log(NFTList);
+      expect(await NFTList[0].name).to.equal('tomatoes');
+      expect(await NFTList[1].name).to.equal('potatoes');
 
       /*
       NFTList example bellow
