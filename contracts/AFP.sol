@@ -14,17 +14,17 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessControlAFP, ERC721Burnable {
     using Counters for Counters.Counter;
 
-    enum FoodType {
-        FRUITS,
-        VEGETABLES,
-        MEAT
-    }
+    // enum FoodType {
+    //     FRUITS,
+    //     VEGETABLES,
+    //     MEAT
+    // }
 
-    enum FoodMetric {
-        KILO,
-        GRAM,
-        LITTER
-    }
+    // enum FoodMetric {
+    //     KILO,
+    //     GRAM,
+    //     LITTER
+    // }
 
     //  FoodType foodType;
     //  FoodMetric foodmetric;
@@ -38,11 +38,16 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     // }
 
     struct foodAsset {
-        string name;
-        uint256 quantity;
+        address producedBy; // the address of the producer
+        uint256 quantity; // e.g. 100
+        uint256 foodType; // e.g. 1 stands for Tomatoes
+        uint256 foodSubtype; // e.g. 1 stands for Biological
     }
 
     mapping(uint256 => foodAsset) private _food;
+    mapping(address => bool) public producers;
+    mapping(address => bool) public warehouses;
+    mapping(address => bool) public vendors;
 
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
@@ -60,11 +65,15 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
         _setupRole(PRODUCER_ROLE, msg.sender);
     }
 
-    function Produce(string memory name, uint256 quantity) public onlyRole(PRODUCER_ROLE) returns (uint256) {
+    function Produce(
+        uint256 quantity,
+        uint256 foodType,
+        uint256 foodSubtype
+    ) public onlyRole(PRODUCER_ROLE) returns (uint256) {
         _tokenIdCounter.increment();
         uint256 currentId = _tokenIdCounter.current();
         _mint(msg.sender, currentId);
-        _food[currentId] = foodAsset(name, quantity);
+        _food[currentId] = foodAsset(msg.sender, quantity, foodType, foodSubtype);
         return currentId;
     }
 
@@ -92,14 +101,17 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
 
     function addProducer(address to) public onlyRole(PRODUCER_ROLE) {
         _setupRole(PRODUCER_ROLE, to);
+        producers[to] = true;
     }
 
     function addWarehouse(address to) public onlyRole(ADMIN_ROLE) {
         _setupRole(WAREHOUSE_ROLE, to);
+        warehouses[to] = true;
     }
 
     function addVendor(address to) public onlyRole(ADMIN_ROLE) {
         _setupRole(VENDOR_ROLE, to);
+        vendors[to] = true;
     }
 
     // function safeMint(address to) public onlyRole(PRODUCER_ROLE) {
