@@ -264,7 +264,7 @@ describe('Alector FoodPrint', () => {
   });
 
   describe('Filter Events', async function () {
-    it('Φilter transfer events', async function () {
+    it('Filter transfer events', async function () {
       await afp.connect(producer).transferFromProducer(producer.address, Alice.address, 1);
       await afp.connect(producer).transferFromProducer(producer.address, Alice.address, 2);
 

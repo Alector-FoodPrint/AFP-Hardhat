@@ -45,9 +45,6 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     }
 
     mapping(uint256 => foodAsset) private _food;
-    mapping(address => bool) public producers;
-    mapping(address => bool) public warehouses;
-    mapping(address => bool) public vendors;
 
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
@@ -101,17 +98,14 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
 
     function addProducer(address to) public onlyRole(PRODUCER_ROLE) {
         _setupRole(PRODUCER_ROLE, to);
-        producers[to] = true;
     }
 
     function addWarehouse(address to) public onlyRole(ADMIN_ROLE) {
         _setupRole(WAREHOUSE_ROLE, to);
-        warehouses[to] = true;
     }
 
     function addVendor(address to) public onlyRole(ADMIN_ROLE) {
         _setupRole(VENDOR_ROLE, to);
-        vendors[to] = true;
     }
 
     // function safeMint(address to) public onlyRole(PRODUCER_ROLE) {
