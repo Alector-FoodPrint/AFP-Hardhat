@@ -3,6 +3,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
+// run `$ npx hardhat test`
 const { expect } = require('chai');
 
 describe('Alector FoodPrint', () => {

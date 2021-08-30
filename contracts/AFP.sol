@@ -2,7 +2,8 @@
 pragma solidity ^0.8.5;
 
 import "hardhat/console.sol";
-import "./AccessControlAFP.sol";
+// import "./AccessControlAFP.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -11,7 +12,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessControlAFP, ERC721Burnable {
+contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessControl, ERC721Burnable {
     using Counters for Counters.Counter;
 
     // enum FoodType {
@@ -96,7 +97,7 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
         return ADMIN_ROLE;
     }
 
-    function addProducer(address to) public onlyRole(PRODUCER_ROLE) {
+    function addProducer(address to) public onlyRole(ADMIN_ROLE) {
         _setupRole(PRODUCER_ROLE, to);
     }
 
@@ -144,7 +145,7 @@ contract AFP is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721Enumerable, AccessControlAFP)
+        override(ERC721, ERC721Enumerable, AccessControl)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
