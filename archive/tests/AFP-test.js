@@ -74,16 +74,6 @@ describe('Alector FoodPrint', () => {
     return final;
   };
 
-  // const FOOD_ASSET = {
-  //   active: true,
-  //   foodType: 0,
-  //   name: 'Tomatoes',
-  //   quanity: 100,
-  //   foodMetric: 0,
-  //   description: 'organic tomatoes',
-  //   creationDate: 11111,
-  // };
-
   beforeEach(async function () {
     [dev, John, Marc, Bob, Alice, producer, warehouse, vendor] = await ethers.getSigners();
 
@@ -240,7 +230,7 @@ describe('Alector FoodPrint', () => {
       const ownedIDs = await ownedNftIDs(afp, producer.address);
       // console.log(ownedIDs);
       const NFTList = await ownedNFTs(afp, ownedIDs);
-
+      console.log(NFTList);
       expect(await NFTList.length).to.equal(2);
 
       /*
@@ -271,8 +261,12 @@ describe('Alector FoodPrint', () => {
 
       console.log('producer', producer.address);
       console.log('Alice', Alice.address);
+      filter = { tokenId: 1 };
+      // ALL transfer events, no filter
+      // const eventFilter = afp.filters.Transfer();
+      // Filter for tokenId = 2
+      const eventFilter = afp.filters.Transfer(null, null, 2);
 
-      const eventFilter = afp.filters.Transfer();
       const events = await afp.queryFilter(eventFilter);
 
       // console.log(events);
@@ -288,27 +282,19 @@ describe('Alector FoodPrint', () => {
         const transactionHash = event.transactionHash;
         const transactionLink = `https://rinkeby.etherscan.io/tx/${transactionHash}`;
 
-        // console.log('\n---\nEVENT');
-        // console.log('tokenId', tokenId.toNumber());
+        console.log('\n---\nEVENT');
+        console.log('tokenId', tokenId.toNumber());
 
-        // console.log('From', accountNames[from], from);
-        // console.log('To', accountNames[to], to);
-        // console.log('blockNumber', blockNumber, to);
-        // console.log('blockHash', blockHash, to);
-        // console.log('transactionHash', transactionHash, to);
-        // console.log('transactionLink', transactionLink, to);
+        console.log('From', accountNames[from], from);
+        console.log('To', accountNames[to], to);
+        console.log('blockNumber', blockNumber, to);
+        console.log('blockHash', blockHash, to);
+        console.log('transactionHash', transactionHash, to);
+        console.log('transactionLink', transactionLink, to);
       }
 
       // const bb = events.topics[2];
       // console.log(bb.toString());
     });
   });
-
-  // describe('Add roles', async function () {
-  // it('put a title here', async function () {
-  // });
-  // });
-
-  // it('put a title here', async function () {
-  // });
 });
