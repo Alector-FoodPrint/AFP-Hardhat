@@ -3,6 +3,8 @@
 const { readFile } = require('fs/promises');
 const FILE_PATH = './deployed.json';
 
+// // npx hardhat run scripts/AFA-post-deploy-food-assets.js --network rinkeby
+
 async function getDeployedAddress(contractName) {
   console.log(`${contractName} deployed on ${hre.network.name}`);
   // Open and Read current FILE_PATH if exists
@@ -99,27 +101,6 @@ async function main() {
     // test basic functionality (print contract name)
     const name = await deployedcontract.name();
     console.log('Contract Name:', name); // OLD MESSAGE
-
-    for (const user of USERS) {
-      const account = user['hash'];
-      const role = user['role'];
-
-      if (role === 'producer') {
-        console.log('Add Producer: ', account);
-        let tx = await deployedcontract.addProducer(account);
-        await tx.wait();
-      }
-      if (role === 'warehouse') {
-        console.log('Add Warehouse: ', account);
-        tx = await deployedcontract.addWarehouse(account);
-        await tx.wait();
-      }
-      if (role === 'vendor') {
-        console.log('Add Vendor: ', account);
-        tx = await deployedcontract.addVendor(account);
-        await tx.wait();
-      }
-    }
 
     console.log('Add 100 Kilos of Tomatos (Biological) to Florent X');
     tx = await deployedcontract.AdminProduce(100, 0, 1, '0xaa7008c660b0b36576adba8df972ca071c731ea3');

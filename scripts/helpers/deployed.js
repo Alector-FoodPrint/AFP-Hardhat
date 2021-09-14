@@ -2,6 +2,8 @@ const { readFile, writeFile } = require('fs/promises');
 const chalk = require('chalk');
 
 const FILE_PATH = './deployed.json';
+const MARKDOWN_PATH = './deployed_addresses.md';
+
 /*
   This function should be called after a successuf deployment in your scripts.
   It will create/update a file named deployed.json containing deployment informations of your smart contracts.
@@ -30,6 +32,7 @@ exports.deployed = async (contractName, networkName, address) => {
 
   try {
     await writeFile(FILE_PATH, jsonString);
+    await writeFile(MARKDOWN_PATH, jsonString);
   } catch (e) {
     console.log(e.message);
     throw e;
