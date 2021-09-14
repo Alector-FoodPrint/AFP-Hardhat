@@ -68,15 +68,15 @@ contract AFA is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     }
 
     /**
-     * @dev This is similar to `Produce` function but it is produced on behalf of another account `producedBy`. The created new NFT is subsequently transfered to this account.
-     * It is useful to create products on behalf of producers with a post-deploy scroipt
+     * @dev This is similar to `Produce` function but it is produced on behalf of another account `producedBy`.
+     * The created NFT is subsequently transfered to `producedBy`.
+     * It is useful to create products on behalf of producers with a post-deploy script
      * The access is restricted to users registered with `PRODUCER_ROLE`
      *  @param quantity the quantity of new food asset, e.g. 10, 100 or 1000
      *  @param foodType the food type of new food asset, e.g. the number 0 may correspont to Tomatoes, 1 to Potatoes etc.
-     *  @param foodSubtype the food sybtype e.g. 0 may correspond to standard, 1 to biological etc.
-     *  @param producedBy the account where this food asset will be transfered to, and also registered as producer in the food asset
+     *  @param foodSubtype the food sybtype e.g. 0 may correspond to standard Tomatoes, 1 to biological Tomatoes etc.
+     *  @param producedBy the account where this food asset will be transfered to
      *  @notice the unit is not included parameter (e.g. Kilos or Lt or Items), it is calculated in the front-end based on foodtype.
-
      */
     function AdminProduce(
         uint256 quantity,
