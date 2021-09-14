@@ -171,7 +171,7 @@ contract AFA is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     }
 
     /**
-     * @dev See {ERC721}.
+     * @dev See {ERC721-_beforeTokenTransfer}.
      */
     function _beforeTokenTransfer(
         address from,
@@ -182,7 +182,7 @@ contract AFA is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     }
 
     /**
-     * @dev See {ERC721}.
+     * @dev See {ERC721-_burn}.
      */
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
