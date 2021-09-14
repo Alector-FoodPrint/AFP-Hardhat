@@ -93,7 +93,7 @@ contract AFA is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
     }
 
     /**
-     * @dev get the NFT based on the provided unique ID.
+     * @dev get the NFT by the provided unique ID.
      * @param id the unique id of the NFT token
      * @return the retreived NFT
      */
