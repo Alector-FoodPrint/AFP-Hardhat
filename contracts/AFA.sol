@@ -83,7 +83,7 @@ contract AFA is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessCont
         uint256 foodType,
         uint256 foodSubtype,
         address producedBy
-    ) public onlyRole(PRODUCER_ROLE) returns (uint256) {
+    ) public onlyRole(ADMIN_ROLE) returns (uint256) {
         _tokenIdCounter.increment();
         uint256 currentId = _tokenIdCounter.current();
         _mint(msg.sender, currentId);

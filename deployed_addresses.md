@@ -1,1 +1,1 @@
-{"AFA":{"rinkeby":{"address":"0x17a5F01fb580365b56F9fc41CD2277375C3255F6"}}}
+{"AFA":{"hardhat":{"address":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},"rinkeby":{"address":"0x761262396808A3B00328C88208C18d4185db8Ce1"}}}
