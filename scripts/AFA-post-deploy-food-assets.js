@@ -106,7 +106,7 @@ async function main() {
     tx = await deployedcontract.AdminProduce(100, 0, 1, '0xaa7008c660b0b36576adba8df972ca071c731ea3');
     await tx.wait();
 
-    console.log('Add 300 Kilos of Potatoes (Standard) to Florent X');
+    console.log('Add 200 Kilos of Potatoes (Standard) to Florent X');
     tx = await deployedcontract.AdminProduce(200, 1, 0, '0xaa7008c660b0b36576adba8df972ca071c731ea3');
     await tx.wait();
 
